@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+    <link rel="stylesheet" href="/src/css/index.css">
+</head>
+<body>
+
+    <header>
+        <h1>Koperasi Musaadah</h1>
+        <nav>
+            <div class="dropdown">
+                <button class="menu-button">Menu</button>
+                <div class="dropdown-content">
+                    <a href="/public/html/grup_stock.html">Grup Stock</a>
+                    <a href="/public/html/stock.html">Stock</a>
+                    <a href="/public/html/supplier.html">Supplier</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <p>Selamat datang di Admin Page! Silakan pilih menu di atas.</p>
+    </main>
+
+    <script>
+        const menuButton = document.querySelector('.menu-button');
+        const dropdownContent = document.querySelector('.dropdown-content');
+
+        menuButton.addEventListener('click', function() {
+            dropdownContent.classList.toggle('show');
+        });
+
+        window.addEventListener('click', function(event) {
+            if (!event.target.matches('.menu-button')) {
+                dropdownContent.classList.remove('show');
+            }
+        });
+
+        window.onload = function() {
+            dropdownContent.classList.remove('show');
+        };
+    </script>
+
+</body>
+</html>

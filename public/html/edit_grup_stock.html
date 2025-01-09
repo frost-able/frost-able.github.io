@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Grup Stock</title>
+    <link rel="stylesheet" href="../../src/css/edit_grup_stock.css">
+
+</head>
+<body>
+
+    <h1>Edit Grup Stock</h1>
+    <a href="grup_stock.html" style="display: inline-block; margin-bottom: 20px; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px;">Kembali</a>
+    <form id="editForm" action="../../src/php/edit_grup_stock.php" method="post">
+
+        <label for="kode_grup">Kode Grup Stock Lama:</label>
+        <input type="text" id="kode_grup" name="kode_grup" required readonly>   
+
+        <label for="kode_grup_baru">Kode Grup Stock Baru:</label>
+        <input type="text" id="kode_grup_baru" name="kode_grup_baru" required>
+
+        <label for="nama_grup">Nama Grup Stock:</label>
+        <input type="text" id="nama_grup" name="nama_grup" required> 
+
+        <input type="submit" value="Update">
+
+    </form>    
+    <script>
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const kodeGrup = urlParams.get('kode_grup');
+
+        fetch(`../../src/php/get_grup_stock.php?kode_grup=${encodeURIComponent(kodeGrup)}`)
+            .then(response => response.json())
+            .then(data => {
+
+                document.getElementById('kode_grup').value = data.Kode_Grup;
+                document.getElementById('nama_grup').value = data.Nama_Grup;
+
+            })
+
+            .catch(error => console.error('Error fetching stock data:', error));
+
+    </script>
+
+</body>
+</html>

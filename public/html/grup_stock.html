@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Grup Stock</title>
+    <link rel="stylesheet" href="../../src/css/grup_stock.css">
+
+</head>
+<body>
+
+    <h1>Daftar Grup Stock</h1>
+    <div id="message"></div>
+    <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+
+        <a href="add_grup_stock.html" class="add-grup_stock">Tambah Grup Stock</a>
+        <a href="../../index.html" class="back-to-menu">Kembali ke Menu Utama</a>
+
+    </div>
+    <table border="1" style="border-collapse: collapse; width: 100%;">
+        <tr>
+
+            <th>Kode Grup Stock</th>
+            <th>Nama Grup Stock</th>
+            <th>Aksi</th>
+
+        </tr>
+
+        <tbody id="grup_stockTableBody"></tbody>
+
+    </table>
+    <script>
+
+        fetch('../../src/php/grup_stock.php')
+            .then(response => response.json())
+            .then(data => {
+
+                const tableBody = document.getElementById('grup_stockTableBody');
+                data.forEach(grup_stock => {
+
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+
+                        <td>${grup_stock.Kode_Grup}</td>
+                        <td>${grup_stock.Nama_Grup}</td>
+                        <td>
+
+                            <a href="edit_grup_stock.html?kode_grup=${
+                            encodeURIComponent(grup_stock.Kode_Grup)}" class="edit-grup_stock">Edit</a> |
+                            <a href="../../src/php/delete_grup_stock.php?kode_grup=${
+                            encodeURIComponent(grup_stock.Kode_Grup)}" class="delete-grup_stock" onclick="return confirm('Apakah Anda yakin ingin menghapus Grup Stock ini?');">Delete</a>
+
+                        </td>
+                    `;
+
+                    tableBody.appendChild(row);
+                    
+                });
+            });
+
+        const message = new URLSearchParams(window.location.search).get('message');
+        if (message) {
+
+            document.getElementById('message').innerText = message;
+            document.getElementById('message').style.color = 'green';
+            document.getElementById('message').style.fontWeight = 'bold';
+
+        }
+
+    </script>
+
+</body>
+</html>
