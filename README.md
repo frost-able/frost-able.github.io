@@ -1,2 +1,1 @@
-# Koperasi Musaadah
-Store Database
+Koperasi Musaadah
